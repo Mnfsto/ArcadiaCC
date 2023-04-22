@@ -6,6 +6,7 @@
     <link href="css/style.css" rel="stylesheet">
     <link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
     <link rel="icon" href="image/favicon.ico" type="image/x-icon">
+
 </head>
 <body class="home">
     <div class="wraper">
@@ -20,30 +21,27 @@
             </footer>
         </main>
     </div>
-<script>
-    /*background-image: url("/image/WaveCorsaRosa_Strawberry.gif");*/
-    // Создаем объект XMLHttpRequest
-    const xhr = new XMLHttpRequest();
+    <script>
+        // Создаем объект XMLHttpRequest
 
-    // Устанавливаем обработчики событий для изменения состояния запроса
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4) {
-            // Скрываем прелоадер после завершения запроса
-            document.getElementById("preloader").style.display = "none";
-            // Отображаем данные, полученные в ответ на запрос
-            document.getElementById("content").innerHTML = xhr.responseText;
-        }
-    };
+        const xhr = new XMLHttpRequest();
 
-    // Отправляем запрос на сервер
-    xhr.open("GET", "/myAjaxRequest", true);
-    xhr.send();
+        // Устанавливаем обработчики событий для изменения состояния запроса
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                // Скрываем прелоадер после завершения запроса
+                document.getElementById("preloader").style.display = "none";
 
-    // Показываем прелоадер перед отправкой запроса
-    document.getElementById("preloader").style.display = "block";
+            }
 
+        };
 
+        // Показываем прелоадер перед отправкой запроса
+        document.getElementById("preloader").style.display = "block";
 
-</script>
+        // Отправляем запрос на сервер
+        xhr.open("GET", "http://arcadia-odesa.club/image/WaveCorsaRosa_Strawberry.gif", true);
+        xhr.send();
+    </script>
 </body>
 </html>
