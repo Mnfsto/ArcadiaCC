@@ -263,6 +263,7 @@ body {
 }
 
 body.home {
+  background-image: url("/image/WaveCorsaRosa_Strawberry.gif");
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;
@@ -288,7 +289,7 @@ body.home h1 {
   /* Добавляем фоновый цвет, чтобы прелоадер был виден */
   background-color: #d40000;
   /* Добавляем анимацию для GIF-изображения */
-  background-image: url("/image/gif-for-loading.gif");
+  background-image: url("/image/gif-for-loading2.gif");
   background-repeat: no-repeat;
   background-position: center center;
 }
