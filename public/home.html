@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Arcadia Coming Soon</title>
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="image/favicon.ico" type="image/x-icon">
+</head>
+<body class="home">
+    <div class="wraper">
+        <div id="preloader"></div>
+        <header>
+            <h1>Coming Soon</h1>
+        </header>
+
+
+            <footer>
+
+            </footer>
+        </main>
+    </div>
+<script>
+    /*background-image: url("/image/WaveCorsaRosa_Strawberry.gif");*/
+    // Создаем объект XMLHttpRequest
+    const xhr = new XMLHttpRequest();
+
+    // Устанавливаем обработчики событий для изменения состояния запроса
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            // Скрываем прелоадер после завершения запроса
+            document.getElementById("preloader").style.display = "none";
+            // Отображаем данные, полученные в ответ на запрос
+            document.getElementById("content").innerHTML = xhr.responseText;
+        }
+    };
+
+    // Отправляем запрос на сервер
+    xhr.open("GET", "/myAjaxRequest", true);
+    xhr.send();
+
+    // Показываем прелоадер перед отправкой запроса
+    document.getElementById("preloader").style.display = "block";
+
+
+
+</script>
+</body>
+</html>
