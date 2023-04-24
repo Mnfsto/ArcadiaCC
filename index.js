@@ -4,8 +4,8 @@ const path = require("path");
 const fs = require('fs');
 const {replaceBackground} = require('./forKids.js');
 const bodyParser = require('body-parser')
-const mailer = require('./nodemailer')
-const smtp = require('./config');
+const mailer = require('./nodemailer.js')
+const smtp = require('./config.js');
 let order = undefined;
 
 const app= express();
