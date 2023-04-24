@@ -3,6 +3,9 @@ const express = require("express");
 const path = require("path");
 const fs = require('fs');
 const bodyParser = require('body-parser')
+const mailer = require('./nodemailer')
+const smtp = require('./config');
+const {replaceBackground} = require('./forKids.js')
 
 
 const app= express();
@@ -14,6 +17,38 @@ app.get('/', function (req,res){
     res.sendFile(path.join(__dirname, '/public/home.html'))
 });
 console.log(__dirname + '/public')
+
+app.get('/forkids.html', replaceBackground, function(req, res) {
+    res.render("forkids.html");
+});
+
+// настрой обработчика запроса
+app.use(bodyParser.urlencoded({ extended: false }))
+// отправка формы
+app.post('/send', (req, res) => {
+    // проверка заполнения обязательных полей
+    if(!req.body.name || !req.body.email || !req.body.telephone) return res.sendStatus(400)
+    const message = {
+        to: smtp.to, // Кому (для нескольких адресатов используйте запятую)
+        subject: "Заявка", // Тема письма
+        text: '', // Содержимое письма
+        html: `<h3>Новая заявка!</h3>
+        <b>Имя:</b> ${req.body.name} </br>
+        <b>Телефон:</b> ${req.body.email}</br>
+        <b>Телефон:</b> ${req.body.telephone}</br>` // html код письма
+    }
+    mailer(message)
+    order = req.body
+    // редирект для предотвращения повторной отправки
+    res.redirect('/confirm')
+
+})
+// возврат к исходному состоянию
+app.get('/send', (req,res) => {
+    if(typeof order !== 'object') return res.sendFile(__dirname + '/index.html')
+    res.send('Заявка успешно принята!')
+    order = undefined
+})
 
 app.get('*', (req, res) => {
     let filePath = path.join(__dirname, req.url);

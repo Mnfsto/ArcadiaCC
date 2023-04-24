@@ -1,6 +1,7 @@
 @import "_reset";
 @import "_fonts";
 
+
 $Primary_color: #d40000;
 $secondary-color: #F7EF87;
 $background_color: #0C3E61;
@@ -10,7 +11,6 @@ $button-color: #e24444;
 
 
 body.home{
-  background-image: url("/image/WaveCorsaRosa_Strawberry.gif");
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;
@@ -36,7 +36,7 @@ body.home{
   /* Добавляем фоновый цвет, чтобы прелоадер был виден */
   background-color: $Primary_color;
   /* Добавляем анимацию для GIF-изображения */
-  background-image: url("/image/gif-for-loading2.gif");
+  background-image: url("/image/gif-for-loading.gif");
   background-repeat: no-repeat;
   background-position: center center;
 }
@@ -47,7 +47,10 @@ body.home{
 body{
   background-color: $Primary_color;
   &.forkids{
-    background-image: url("/image/background_TrainingForKids.png");
+    background-image: url("/image/backgroundWebForKids.gif");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
     background-size: cover;
   }
 }
@@ -222,4 +225,4 @@ footer {
     color: #fff;
   }
 }
-
+@import "_mediaqueries";

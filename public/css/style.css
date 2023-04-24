@@ -263,7 +263,6 @@ body {
 }
 
 body.home {
-  background-image: url("/image/WaveCorsaRosa_Strawberry.gif");
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;
@@ -289,7 +288,7 @@ body.home h1 {
   /* Добавляем фоновый цвет, чтобы прелоадер был виден */
   background-color: #d40000;
   /* Добавляем анимацию для GIF-изображения */
-  background-image: url("/image/gif-for-loading2.gif");
+  background-image: url("/image/gif-for-loading.gif");
   background-repeat: no-repeat;
   background-position: center center;
 }
@@ -298,7 +297,10 @@ body {
   background-color: #d40000;
 }
 body.forkids {
-  background-image: url("/image/background_TrainingForKids.png");
+  background-image: url("/image/backgroundWebForKids.gif");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
   background-size: cover;
 }
 
@@ -462,6 +464,31 @@ footer p {
   font-size: 0.8em;
   margin: auto;
   color: #fff;
+}
+
+@media (max-width: 500px) {
+  .heroText {
+    padding-top: 43%;
+    width: 100%;
+  }
+  section p {
+    font-size: 1.1em;
+    align-items: center;
+  }
+}
+@media (max-width: 360px) {
+  .wraper {
+    margin: 0 8px;
+  }
+  form {
+    margin: 0px;
+  }
+  section p {
+    font-size: 1em;
+  }
+  section p img {
+    height: 28px;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
