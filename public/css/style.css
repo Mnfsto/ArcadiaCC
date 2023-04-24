@@ -335,6 +335,10 @@ nav li {
 main {
   margin-top: 60px;
 }
+main h1 {
+  text-align: center;
+  color: white;
+}
 
 form {
   width: 248px;

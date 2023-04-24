@@ -2,11 +2,11 @@
 const express = require("express");
 const path = require("path");
 const fs = require('fs');
+const {replaceBackground} = require('./forKids.js');
 const bodyParser = require('body-parser')
 const mailer = require('./nodemailer')
 const smtp = require('./config');
-const {replaceBackground} = require('./forKids.js')
-
+let order = undefined;
 
 const app= express();
 const port = 3005;
@@ -40,12 +40,12 @@ app.post('/send', (req, res) => {
     mailer(message)
     order = req.body
     // редирект для предотвращения повторной отправки
-    res.redirect('/confirm')
+    res.redirect('/confirm.html')
 
 })
 // возврат к исходному состоянию
 app.get('/send', (req,res) => {
-    if(typeof order !== 'object') return res.sendFile(__dirname + '/index.html')
+    if(typeof order !== 'object') return res.sendFile(__dirname + '/confirm.html')
     res.send('Заявка успешно принята!')
     order = undefined
 })
