@@ -634,7 +634,7 @@ footer p {
 
 @media (max-width: 500px) {
   .heroText {
-    padding-top: 23%;
+    padding-top: 20%;
     width: 100%;
   }
   section p {
