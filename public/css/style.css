@@ -382,6 +382,7 @@ form input.is-circle {
   outline-color: #0C3E61;
 }
 form input[type=submit] {
+  border-radius: 0;
   text-anchor: end;
   font-size: 1em;
   font-weight: bold;
