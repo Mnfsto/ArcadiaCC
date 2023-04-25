@@ -1,6 +1,6 @@
 // загружаем модуль nodemailer
 const nodemailer = require("nodemailer")
-const smtp = require('./config');
+const smtp = require('./config.js');
 
 // настройки smtp транспортера
 let transporter = nodemailer.createTransport({

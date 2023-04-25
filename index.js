@@ -2,7 +2,6 @@
 const express = require("express");
 const path = require("path");
 const fs = require('fs');
-const {replaceBackground} = require('./forKids.js');
 const bodyParser = require('body-parser')
 const mailer = require('./nodemailer.js')
 const smtp = require('./config.js');
@@ -13,14 +12,13 @@ const port = 3005;
 
 
 app.use(express.static(__dirname + '/public'));
+
+
 app.get('/', function (req,res){
     res.sendFile(path.join(__dirname, '/public/home.html'))
 });
 console.log(__dirname + '/public')
 
-app.get('/forkids.html', replaceBackground, function(req, res) {
-    res.render("forkids.html");
-});
 
 // настрой обработчика запроса
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -30,7 +28,7 @@ app.post('/send', (req, res) => {
     if(!req.body.name || !req.body.email || !req.body.telephone) return res.sendStatus(400)
     const message = {
         to: smtp.to, // Кому (для нескольких адресатов используйте запятую)
-        subject: "Заявка", // Тема письма
+        subject: "Заявка Arcadia Pixel Fighter", // Тема письма
         text: '', // Содержимое письма
         html: `<h3>Новая заявка!</h3>
         <b>Имя:</b> ${req.body.name} </br>

@@ -387,6 +387,10 @@ form input[type=submit][type=submit]:hover {
   cursor: pointer;
 }
 
+.confirm h1 {
+  padding: 50px;
+}
+
 section p {
   display: flex;
   justify-content: center;
