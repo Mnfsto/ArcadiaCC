@@ -1,0 +1,24 @@
+{
+  "name": "arcadia-cc",
+  "version": "0.2.0",
+  "description": "NodeJS Express NodeMailer MongoDB",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "build": "cd client && npm install && npm run build",
+    "test": "jest"
+  },
+  "keywords": [
+    "NodeJS",
+    "Express",
+    "NodeMailer",
+    "MongoDB",
+    "React"
+  ],
+  "author": "Mnfsto",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongodb": "^6.3.0"
+  }
+}
