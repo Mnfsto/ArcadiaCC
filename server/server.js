@@ -17,7 +17,9 @@ const { auth, genId } = require('./lib/middleware/userSession')
 const app = express();
 module.exports = app; // Экспортируем app для Vercel
 
-app.use(helmet());
+app.use(helmet({
+    contentSecurityPolicy: false, // Отключаем CSP для простоты деплоя, если возникнут проблемы с загрузкой ресурсов
+}));
 const urlencodedParser = express.urlencoded({ extended: true });
 app.use(express.json());
 
