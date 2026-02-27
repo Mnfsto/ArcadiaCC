@@ -25,6 +25,7 @@ app.use(express.json());
 
 // Cookies && Session
 app.use(cookieParser(credentials.cookieSecret))
+app.set('trust proxy', 1); // Доверяем прокси Vercel для корректной работы кук
 app.use(expressSession({
     resave: false,
     saveUninitialized: false,
