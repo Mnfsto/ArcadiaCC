@@ -15,8 +15,6 @@ const { credentials } = require('./lib/config')
 const { auth, genId } = require('./lib/middleware/userSession')
 
 const app = express();
-module.exports = app; // Экспортируем app для Vercel
-
 app.use(helmet({
     contentSecurityPolicy: false, // Отключаем CSP для простоты деплоя, если возникнут проблемы с загрузкой ресурсов
 }));
@@ -25,7 +23,6 @@ app.use(express.json());
 
 // Cookies && Session
 app.use(cookieParser(credentials.cookieSecret))
-app.set('trust proxy', 1); // Доверяем прокси Vercel для корректной работы кук
 app.use(expressSession({
     resave: false,
     saveUninitialized: false,
@@ -175,36 +172,19 @@ app.get('/express_backend', (req, res) => {
 });
 
 // Startup logic
-if (process.env.NODE_ENV !== 'production') {
-    (async () => {
-        try {
-            await connectDB();
-            app.locals.collection = getCollection("users");
-            app.listen(PORT, () => {
-                console.log(`The server is waiting for a connection on port ${PORT}...`);
-            });
-            await airtable.getTable;
-            console.log('Airtable connect.....');
-        } catch (err) {
-            console.error("Initialization error:", err);
-        }
-    })();
-} else {
-    // В продакшене (Vercel) инициализация будет происходить через middleware или при первом запросе
-    app.use(async (req, res, next) => {
-        try {
-            if (!app.locals.collection) {
-                await connectDB();
-                app.locals.collection = getCollection("users");
-                await airtable.getTable;
-            }
-            next();
-        } catch (err) {
-            console.error("Middleware initialization error:", err);
-            res.status(500).send("Internal Server Error during initialization");
-        }
-    });
-}
+(async () => {
+    try {
+        await connectDB();
+        app.locals.collection = getCollection("users");
+        app.listen(PORT, () => {
+            console.log(`The server is waiting for a connection on port ${PORT}...`);
+        });
+        await airtable.getTable;
+        console.log('Airtable connect.....');
+    } catch (err) {
+        console.error("Initialization error:", err);
+    }
+})();
 
 // Shutdown logic
 process.on("SIGINT", async () => {
