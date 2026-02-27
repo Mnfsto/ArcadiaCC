@@ -41,7 +41,8 @@ app.use(genId)
 app.get('/auth', auth)
 
 // Have Node serve the files for our built React app
-app.use(express.static(path.resolve(__dirname, '../client/build')));
+const buildPath = path.join(process.cwd(), 'client/build');
+app.use(express.static(buildPath));
 
 // Handle GET requests to /api route
 app.get("/api", handlers.api);
@@ -166,7 +167,7 @@ app.post("/cart-submit", urlencodedParser, async function (request, response) {
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+    res.sendFile(path.join(buildPath, 'index.html'));
 });
 
 app.get('/express_backend', (req, res) => {
