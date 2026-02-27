@@ -11,9 +11,12 @@ const smtp = require('./mailer/config')
 const cookieParser = require('cookie-parser')
 const expressSession = require('express-session')
 const { credentials } = require('./lib/config')
+// ... (предыдущие импорты) ...
 const { auth, genId } = require('./lib/middleware/userSession')
 
 const app = express();
+module.exports = app; // Экспортируем app для Vercel
+
 app.use(helmet());
 const urlencodedParser = express.urlencoded({ extended: true });
 app.use(express.json());
@@ -168,19 +171,36 @@ app.get('/express_backend', (req, res) => {
 });
 
 // Startup logic
-(async () => {
-    try {
-        await connectDB();
-        app.locals.collection = getCollection("users");
-        app.listen(PORT, () => {
-            console.log(`The server is waiting for a connection on port ${PORT}...`);
-        });
-        await airtable.getTable;
-        console.log('Airtable connect.....');
-    } catch (err) {
-        console.error("Initialization error:", err);
-    }
-})();
+if (process.env.NODE_ENV !== 'production') {
+    (async () => {
+        try {
+            await connectDB();
+            app.locals.collection = getCollection("users");
+            app.listen(PORT, () => {
+                console.log(`The server is waiting for a connection on port ${PORT}...`);
+            });
+            await airtable.getTable;
+            console.log('Airtable connect.....');
+        } catch (err) {
+            console.error("Initialization error:", err);
+        }
+    })();
+} else {
+    // В продакшене (Vercel) инициализация будет происходить через middleware или при первом запросе
+    app.use(async (req, res, next) => {
+        try {
+            if (!app.locals.collection) {
+                await connectDB();
+                app.locals.collection = getCollection("users");
+                await airtable.getTable;
+            }
+            next();
+        } catch (err) {
+            console.error("Middleware initialization error:", err);
+            res.status(500).send("Internal Server Error during initialization");
+        }
+    });
+}
 
 // Shutdown logic
 process.on("SIGINT", async () => {

@@ -1,3 +1,4 @@
-const env = process.env.N0DE_ENV || 'development'
-const credentials = require(`./.credentials.${env}`)
-module.exports = { credentials }
+const credentials = {
+    cookieSecret: process.env.COOKIE_SECRET || "coming strength nothing half"
+};
+module.exports = { credentials };
