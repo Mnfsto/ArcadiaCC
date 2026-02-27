@@ -18,7 +18,12 @@
   "author": "Mnfsto",
   "license": "ISC",
   "dependencies": {
+    "airtable": "^0.12.2",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^17.3.1",
     "express": "^4.18.2",
-    "mongodb": "^6.3.0"
+    "express-session": "^1.18.0",
+    "mongodb": "^6.3.0",
+    "nodemailer": "^6.9.11"
   }
 }
