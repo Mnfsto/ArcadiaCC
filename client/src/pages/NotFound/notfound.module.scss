@@ -1,0 +1,90 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px;
+  background-color: #D40000;
+  color: white;
+  text-align: center;
+
+  h1 {
+    font-size: 8rem;
+    margin: 0;
+  }
+
+  p {
+    font-size: 2rem;
+    margin: 20px 0;
+  }
+
+  .link {
+    color: white;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    text-decoration: underline;
+    font-weight: bold;
+    margin-top: 30px;
+
+    &:hover {
+      text-decoration: none;
+      opacity: 0.8;
+    }
+  }
+}
+
+//Glitch Effect
+$primaryColor: #ffffff;
+$secondaryColor: #d40000;
+$steps: 20;
+
+
+
+.glitch {
+  position: relative;
+  margin: 10px auto;
+  color: $primaryColor;
+  font-size: 80px;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  transform: scale3d(1, 1, 1);
+
+
+  &::before,
+  &::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    background: $secondaryColor;
+    color: $primaryColor;
+    clip: rect(0, 900px, 0, 0);
+
+  }
+
+  &::before {
+    left: 4px;
+    text-shadow: 1px 0 #ffffff;
+    animation: glitch-effect 3s infinite linear alternate-reverse;
+  }
+
+  &::after {
+    left: 7px;
+    text-shadow: -5px 0 #ff4b4b;
+    animation: glitch-effect 2s infinite linear alternate-reverse;
+  }
+}
+
+@keyframes glitch-effect {
+
+  @for $i from 0 through $steps {
+    #{percentage($i*(1/$steps))} {
+      clip: rect(random(100)+px, 9999px, random(100)+px, 0);
+    }
+  }
+
+}

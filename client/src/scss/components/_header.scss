@@ -1,0 +1,34 @@
+.header {
+
+
+  @media (max-width: 768px) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+
+    &__logo {
+      padding: 10px 20px;
+    }
+
+    &__social-links {
+      display: none;
+    }
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $primary;
+
+    @media (max-width: 645px) {
+      flex-direction: column;
+
+
+
+    }
+
+  }
+}

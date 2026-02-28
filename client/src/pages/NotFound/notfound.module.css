@@ -1,0 +1,131 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px;
+  background-color: #D40000;
+  color: white;
+  text-align: center;
+}
+.root h1 {
+  font-size: 8rem;
+  margin: 0;
+}
+.root p {
+  font-size: 2rem;
+  margin: 20px 0;
+}
+.root .link {
+  color: white;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  text-decoration: underline;
+  font-weight: bold;
+  margin-top: 30px;
+}
+.root .link:hover {
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+.glitch {
+  position: relative;
+  margin: 10px auto;
+  color: #ffffff;
+  font-size: 80px;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  transform: scale3d(1, 1, 1);
+}
+.glitch::before, .glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  background: #d40000;
+  color: #ffffff;
+  clip: rect(0, 900px, 0, 0);
+}
+.glitch::before {
+  left: 4px;
+  text-shadow: 1px 0 #ffffff;
+  animation: glitch-effect 3s infinite linear alternate-reverse;
+}
+.glitch::after {
+  left: 7px;
+  text-shadow: -5px 0 #ff4b4b;
+  animation: glitch-effect 2s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-effect {
+  0% {
+    clip: rect(7px, 9999px, 33px, 0);
+  }
+  5% {
+    clip: rect(29px, 9999px, 37px, 0);
+  }
+  10% {
+    clip: rect(26px, 9999px, 89px, 0);
+  }
+  15% {
+    clip: rect(48px, 9999px, 20px, 0);
+  }
+  20% {
+    clip: rect(47px, 9999px, 86px, 0);
+  }
+  25% {
+    clip: rect(20px, 9999px, 88px, 0);
+  }
+  30% {
+    clip: rect(35px, 9999px, 43px, 0);
+  }
+  35% {
+    clip: rect(75px, 9999px, 12px, 0);
+  }
+  40% {
+    clip: rect(96px, 9999px, 55px, 0);
+  }
+  45% {
+    clip: rect(95px, 9999px, 17px, 0);
+  }
+  50% {
+    clip: rect(25px, 9999px, 29px, 0);
+  }
+  55% {
+    clip: rect(87px, 9999px, 55px, 0);
+  }
+  60% {
+    clip: rect(89px, 9999px, 53px, 0);
+  }
+  65% {
+    clip: rect(19px, 9999px, 87px, 0);
+  }
+  70% {
+    clip: rect(96px, 9999px, 19px, 0);
+  }
+  75% {
+    clip: rect(26px, 9999px, 67px, 0);
+  }
+  80% {
+    clip: rect(4px, 9999px, 16px, 0);
+  }
+  85% {
+    clip: rect(63px, 9999px, 37px, 0);
+  }
+  90% {
+    clip: rect(12px, 9999px, 80px, 0);
+  }
+  95% {
+    clip: rect(64px, 9999px, 33px, 0);
+  }
+  100% {
+    clip: rect(93px, 9999px, 41px, 0);
+  }
+}
+
+/*# sourceMappingURL=notfound.module.css.map */

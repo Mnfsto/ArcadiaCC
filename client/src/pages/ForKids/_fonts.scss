@@ -1,0 +1,46 @@
+// Webfont
+$font: Lato, Helvetica, sans-serif;
+$font-color: #1A1A1A;
+$font-color-header: #0A2D32;
+$font-size-header: 3.2em;
+$font-size-text: 16px;
+
+@mixin fontSize($size){
+  font-size: $size;
+}
+
+@mixin Header2($size : 4.5em){
+  padding-top: 64px;
+  padding-bottom: 48px;
+  font-size: $size;
+  font-family: $font;
+  text-align: center;
+}
+
+h1,h2,h3,h4,h5,h6{
+  font-size: $font-size-header;
+  margin-bottom: 8px;
+  color: $font-color-header;
+}
+
+p{
+  padding-bottom: 8px;
+  color: $font-color;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+ul{
+  padding-left: 16px;
+  padding-bottom: 16px;
+}
+strong{
+  font-family: LatoWebBold;
+}
+
+body {
+  font-family: $font;
+  background-color: #e5e5e5;
+  font-size: $font-size-text;
+  scroll-behavior: smooth;
+}
