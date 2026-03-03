@@ -13,6 +13,7 @@ const expressSession = require('express-session')
 const { credentials } = require('./lib/config')
 // ... (предыдущие импорты) ...
 const { auth, genId } = require('./lib/middleware/userSession')
+const { orderMessage, hashOrder } = require("./lib/orderData");
 
 const app = express();
 app.use(helmet({
@@ -128,7 +129,15 @@ app.post("/cart-submit", urlencodedParser, async function (request, response) {
     const name = request.body.name
     const email = request.body.email
     const phone = request.body.phone
+    const order = request.body.cartData
+    const itemCount = request.body.itemCount
+    console.log(itemCount);
+    console.log(order);
 
+    const orderHtml = await orderMessage(order);
+    const orderId = await hashOrder(order);
+    console.log(orderHtml);
+    const messageSuccess = `Thank you for your order! ID ${orderId}`
     try {
         await airtable.createOrder(name, phone, email)
 
@@ -139,16 +148,20 @@ app.post("/cart-submit", urlencodedParser, async function (request, response) {
             html: `<h3>Новый Заказ!</h3>
         <b>Имя:</b> ${name} </br>
         <b>Email:</b> ${email}</br>
-        <b>Телефон:</b> ${phone}</br>`
+        <b>Телефон:</b> ${phone}</br>
+        <b>id:</b> ${orderId}</br>
+        <b> Order:</b>
+            <b> ${orderHtml}</b>`
+
         }
         await sendMail(message)
 
         response.format({
             'text/html': () => {
-                response.json({ success: true, message: 'Спасибо за ваш заказ!' });
+                response.json({ success: true, message: messageSuccess });
             },
             'application/json': () => {
-                response.json({ success: true, message: 'Спасибо за ваш заказ!' });
+                response.json({ success: true, message: messageSuccess });
             },
         })
     } catch (err) {
