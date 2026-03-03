@@ -1,10 +1,10 @@
-require('dotenv').config();
+require('dotenv').config({ path: require('path').resolve(__dirname, '../../.env') });
 const Airtable = require('airtable');
 
 if (!process.env.AIRTABLE_API_KEY) {
     console.error('ERROR: AIRTABLE_API_KEY is not defined in environment variables.');
     // Optional: provide more context if in development
-    const result = require('dotenv').config();
+    const result = require('dotenv').config({ path: require('path').resolve(__dirname, '../../.env') });
     if (result.error) {
         console.error('Error loading .env file:', result.error);
     } else {
