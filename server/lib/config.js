@@ -1,3 +1,4 @@
+require('dotenv').config();
 const credentials = {
     cookieSecret: process.env.COOKIE_SECRET || "coming strength nothing half"
 };
