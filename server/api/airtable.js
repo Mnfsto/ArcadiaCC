@@ -1,13 +1,23 @@
 require('dotenv').config();
-const Airtable = require('airtable')
+const Airtable = require('airtable');
 
+if (!process.env.AIRTABLE_API_KEY) {
+    console.error('ERROR: AIRTABLE_API_KEY is not defined in environment variables.');
+    // Optional: provide more context if in development
+    const result = require('dotenv').config();
+    if (result.error) {
+        console.error('Error loading .env file:', result.error);
+    } else {
+        console.log('.env file loaded, but AIRTABLE_API_KEY still missing.');
+    }
+}
 
 Airtable.configure({
     endpointUrl: 'https://api.airtable.com',
     apiKey: process.env.AIRTABLE_API_KEY,
-})
+});
 
-const base = Airtable.base('appuiJ0zwDJQ9vRQU');
+const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base('appuiJ0zwDJQ9vRQU');
 
 exports.getTable = base('New Member').select({
     // Selecting the first 3 records in Grid view:
