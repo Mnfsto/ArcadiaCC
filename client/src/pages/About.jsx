@@ -9,7 +9,7 @@ export const About = () => {
             <section className="about-hero">
                 <div
                     className="about-hero__bg"
-                    style={{ backgroundImage: "url('./image/teaser%20(0-00-03-03).jpg')" }}
+                    style={{ backgroundImage: "url('./image/paternWire.png')" }}
                 />
                 <div className="about-hero__overlay" />
                 <div className="about-hero__scanlines" />

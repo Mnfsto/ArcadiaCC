@@ -9,6 +9,7 @@ import { About } from "./pages/About";
 import PrivacyPolicy from "./pages/Policies/PrivacyPolicy";
 import AnnualReports from "./pages/Policies/AnnualReports";
 import Safeguarding from "./pages/Policies/Safeguarding";
+import RegistrationStep2 from "./pages/RegistrationStep2/RegistrationStep2";
 
 function App() {
     //const [data, setData] = useState(null);
@@ -24,7 +25,7 @@ function App() {
         return body;
     };
 
-    // получение GET маршрута с сервера Express, который соответствует GET из server.js
+  
     useEffect(() => {
         // const cookieUserId =  (document.cookie.match(/user_id=([^;]+)/)[1])
         // if (!cookieUserId){
@@ -55,6 +56,7 @@ function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/forkids" element={<ForKids />} />
                 <Route path="/success" element={<Success />} />
+                <Route path="/join-step-2" element={<RegistrationStep2 />} />
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="/annual-reports" element={<AnnualReports />} />
                 <Route path="/safeguarding" element={<Safeguarding />} />

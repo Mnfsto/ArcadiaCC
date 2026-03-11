@@ -48,10 +48,10 @@ app.get("/api", handlers.api);
 // Form processing on the main page
 app.post("/", urlencodedParser, async function (request, response) {
     const userId = request.signedCookies.user_id
-    const name = request.body.name
+    const fullName = request.body.fullName
     const email = request.body.email
     const phone = request.body.phone
-    const user = { name: name, email: email, phone: phone, }
+    const user = { fullName: fullName, email: email, phone: phone, }
     const collection = request.app.locals.collection
     try {
         console.log("save:" + userId)
@@ -59,14 +59,14 @@ app.post("/", urlencodedParser, async function (request, response) {
         request.session.user = user
 
         await collection.insertOne(user)
-        await airtable.createMember(name, phone, email)
+        await airtable.createMember(fullName, phone, email)
 
         const message = {
             to: smtp.to,
             subject: 'Заявка Join Us - AClub',
-            text: `Новая заявка! Имя: ${name}, Email: ${email}, Телефон: ${phone}`,
+            text: `Новая заявка! Имя: ${fullName}, Email: ${email}, Телефон: ${phone}`,
             html: `<h3>Новая заявка!</h3>
-        <b>Имя:</b> ${name} </br>
+        <b>Имя:</b> ${fullName} </br>
         <b>Email:</b> ${email}</br>
         <b>Телефон:</b> ${phone}</br>`
         }
@@ -78,7 +78,7 @@ app.post("/", urlencodedParser, async function (request, response) {
             'application/json': () => response.json({ success: true }),
         })
     } catch (err) {
-        console.log(`Ошибка при обработке контакта от ${request.body.name} - ${request.body.phone} - ${request.body.email}`)
+        console.log(`Ошибка при обработке контакта от ${request.body.fullName} - ${request.body.phone} - ${request.body.email}`)
         response.format({
             'text/html': () => response.redirect(303, '/contact-error'),
             'application/json': () => response.status(500).json({
