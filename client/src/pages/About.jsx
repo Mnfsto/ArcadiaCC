@@ -98,6 +98,78 @@ export const About = () => {
                 </div>
             </section>
 
+            {/* ── Team ── */}
+            <section className="about-team">
+                <div className="about-team__header">
+                    <h2>Our Team</h2>
+                    <p>The people behind every ride</p>
+                </div>
+                <div className="about-team__grid">
+                    <div className="about-team__card">
+                        <div className="about-team__photo-wrap">
+                            <img
+                                src="./image/Vika.png"
+                                alt="Viktoria Bondarenko"
+                                className="about-team__photo"
+                            />
+                        </div>
+                        <div className="about-team__info">
+                            <h3 className="about-team__name">Viktoria Bondarenko</h3>
+                            <span className="about-team__role">Club President, Head Coach</span>
+                            <p className="about-team__bio">
+                                A multi-time Champion of Ukraine and European Championship medalist.
+                                Viktoria transforms her professional racing experience into accessible
+                                and intuitive training methods. For her, cycling is about more than
+                                just medals — it's about building an open community where everyone
+                                can find their path to the top.
+                            </p>
+                            <a
+                                className="about-team__instagram"
+                                href="https://www.instagram.com/viktoriia_bonya/"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                <svg className="about-team__ig-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                                </svg>
+                                @viktoriia_bonya
+                            </a>
+                        </div>
+                    </div>
+                    <div className="about-team__card">
+                        <div className="about-team__photo-wrap">
+                            <img
+                                src="./image/Maxim.png"
+                                alt="Maxim Titov"
+                                className="about-team__photo"
+                            />
+                        </div>
+                        <div className="about-team__info">
+                            <h3 className="about-team__name">Maxim Titov</h3>
+                            <span className="about-team__role">Vice President, Sports Director</span>
+                            <p className="about-team__bio">
+                                The architect of training processes and the club's lead strategist.
+                                Maxim is responsible for developing Arcadia as a premier sports hub,
+                                coordinating key events and the team's internal growth. His mission
+                                is to make a professional approach to sports a natural part of every
+                                club member's daily life.
+                            </p>
+                            <a
+                                className="about-team__instagram"
+                                href="https://www.instagram.com/maxxim.titov/"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                <svg className="about-team__ig-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                                </svg>
+                                @maxxim.titov
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* ── Sponsors ── */}
             <section className="about-sponsors">
                 <div className="about-sponsors__header">

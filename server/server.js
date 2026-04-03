@@ -17,7 +17,7 @@ const { orderMessage, hashOrder } = require("./lib/orderData");
 
 const app = express();
 app.use(helmet({
-    contentSecurityPolicy: false, // Отключаем CSP для простоты деплоя, если возникнут проблемы с загрузкой ресурсов
+    contentSecurityPolicy: false,
 }));
 const urlencodedParser = express.urlencoded({ extended: true });
 app.use(express.json());
