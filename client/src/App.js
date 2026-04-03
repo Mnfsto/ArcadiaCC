@@ -16,7 +16,7 @@ function App() {
 
 
     const callBackendAPI = async () => {
-        const response = await fetch('/express_backend');
+        const response = await fetch('/api/express_backend');
         const body = await response.json();
 
         if (response.status !== 200) {

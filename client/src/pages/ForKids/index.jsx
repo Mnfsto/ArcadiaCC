@@ -339,7 +339,7 @@ export default function ForKids() {
                             };
                             
                             try {
-                                await fetch('/sendPixel', {
+                                await fetch('/api/sendPixel', {
                                     method: 'POST',
                                     headers: { 'Content-Type': 'application/json' },
                                     body: JSON.stringify(data)
@@ -422,7 +422,7 @@ export default function ForKids() {
                                 };
                                 
                                 try {
-                                    await fetch('/order-kids-subscription', {
+                                    await fetch('/api/order-kids-subscription', {
                                         method: 'POST',
                                         headers: { 'Content-Type': 'application/json' },
                                         body: JSON.stringify(data)

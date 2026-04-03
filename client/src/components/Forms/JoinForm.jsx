@@ -10,7 +10,7 @@ export const JoinForm = ({ closeModal }) => {
 
         try {
             // POST data to the backend (saves to DB, Airtable, sends email)
-            await fetch('/', {
+            await fetch('/api/', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                 body: JSON.stringify(data),
