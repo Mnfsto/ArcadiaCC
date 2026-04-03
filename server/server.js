@@ -47,80 +47,95 @@ app.get("/api", handlers.api);
 
 // Form processing on the main page
 app.post("/", urlencodedParser, async function (request, response) {
-    const userId = request.signedCookies.user_id
-    const fullName = request.body.fullName
-    const email = request.body.email
-    const phone = request.body.phone
-    const user = { fullName: fullName, email: email, phone: phone, }
-    const collection = request.app.locals.collection
-    try {
-        console.log("save:" + userId)
-        request.session.userId = userId
-        request.session.user = user
+    const userId = request.signedCookies.user_id;
+    const fullName = request.body.fullName;
+    const email = request.body.email;
+    const phone = request.body.phone;
+    const user = { fullName: fullName, email: email, phone: phone };
+    const collection = request.app.locals.collection;
 
-        await collection.insertOne(user)
-        await airtable.createMember(fullName, phone, email)
+    try {
+        console.log("save:" + userId);
+        request.session.userId = userId;
+        request.session.user = user;
+
+        // =========================================================
+        // TODO: HIGHLIGHTED CODE FOR INDEPENDENT REFINEMENT
+        // Here you can set up MongoDB and Airtable integration,
+        // and refine the email logic as needed.
+        // =========================================================
+        await collection.insertOne(user);
+        await airtable.createMember(fullName, phone, email);
 
         const message = {
             to: smtp.to,
-            subject: 'Заявка Join Us - AClub',
-            text: `Новая заявка! Имя: ${fullName}, Email: ${email}, Телефон: ${phone}`,
-            html: `<h3>Новая заявка!</h3>
-        <b>Имя:</b> ${fullName} </br>
+            subject: 'Join Us Request - AClub',
+            text: `New Join Us request! Name: ${fullName}, Email: ${email}, Phone: ${phone}`,
+            html: `<h3>New Join Us Request!</h3>
+        <b>Name:</b> ${fullName} </br>
         <b>Email:</b> ${email}</br>
-        <b>Телефон:</b> ${phone}</br>`
-        }
-        await sendMail(message)
+        <b>Phone:</b> ${phone}</br>`
+        };
+        await sendMail(message);
+
+        // =========================================================
 
         console.log(request.body);
         response.format({
             'text/html': () => response.redirect(303, '/thank-you'),
             'application/json': () => response.json({ success: true }),
-        })
+        });
     } catch (err) {
-        console.log(`Ошибка при обработке контакта от ${request.body.fullName} - ${request.body.phone} - ${request.body.email}`)
+        console.log(`Error processing contact from ${request.body.fullName} - ${request.body.phone} - ${request.body.email}`, err);
         response.format({
             'text/html': () => response.redirect(303, '/contact-error'),
             'application/json': () => response.status(500).json({
-                error: 'ошибка при сохранении информации о контакте'
+                error: 'error saving contact information'
             }),
-        })
+        });
     }
 });
 
 // Pixel fighter Form new Member
 app.post("/sendPixel", urlencodedParser, async function (request, response) {
-    const name = request.body.name
-    const email = request.body.email
-    const phone = request.body.phone
-    const user = { name: name, email: email, phone: phone, }
+    const name = request.body.name;
+    const email = request.body.email;
+    const phone = request.body.phone;
+    const user = { name: name, email: email, phone: phone };
 
     try {
-        await airtable.createMemberPixel(name, phone, email)
+        // =========================================================
+        // TODO: HIGHLIGHTED CODE FOR INDEPENDENT REFINEMENT
+        // Here you can set up Airtable (e.g. airtable.createSubscription(...))
+        // and refine the email logic as needed.
+        // =========================================================
+        await airtable.createMemberPixel(name, phone, email);
 
         const message = {
             to: smtp.to,
-            subject: 'Новый Pixel :)',
-            text: `Новый Участник Pixel Fighter. Имя: ${name}, Email: ${email}, Телефон: ${phone}`,
-            html: `<h3>Новый Участник Pixel Fighter</h3>
-        <b>Имя:</b> ${name} </br>
+            subject: 'New Pixel :)',
+            text: `New Pixel Fighter Member. Name: ${name}, Email: ${email}, Phone: ${phone}`,
+            html: `<h3>New Pixel Fighter Member</h3>
+        <b>Name:</b> ${name} </br>
         <b>Email:</b> ${email}</br>
-        <b>Телефон:</b> ${phone}</br>`
-        }
-        await sendMail(message)
+        <b>Phone:</b> ${phone}</br>`
+        };
+        await sendMail(message);
+
+        // =========================================================
 
         response.format({
             'text/html': () => response.redirect(303, '/thank-you'),
             'application/json': () => response.json({ success: true }),
-        })
+        });
     } catch (err) {
-        console.log(`Ошибка при обработке контакта от ${request.body.name} - ${request.body.phone} - ${request.body.email}`)
+        console.log(`Error processing contact from ${request.body.name} - ${request.body.phone} - ${request.body.email}:`, err);
         response.format({
             'text/html': () => response.redirect(303, '/contact-error'),
             'application/json': () => response.status(500).json({
-                error: 'ошибка при сохранении информации о контакте'
+                error: 'error saving contact information'
             }),
-        })
+        });
     }
 });
 // Order Kids Subscription Form

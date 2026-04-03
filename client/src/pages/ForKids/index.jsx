@@ -329,8 +329,25 @@ export default function ForKids() {
                     <form
                         className={styles.form}
                         id="contact-form"
-                        onSubmit={(e) => {
+                        onSubmit={async (e) => {
                             e.preventDefault();
+                            const formData = new FormData(e.target);
+                            const data = {
+                                name: formData.get('name'),
+                                email: formData.get('email'),
+                                phone: formData.get('phone')
+                            };
+                            
+                            try {
+                                await fetch('/sendPixel', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify(data)
+                                });
+                            } catch (err) {
+                                console.error("Join error", err);
+                            }
+                            
                             navigate('/success');
                         }}
                     >
