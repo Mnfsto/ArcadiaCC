@@ -123,6 +123,40 @@ app.post("/sendPixel", urlencodedParser, async function (request, response) {
         })
     }
 });
+// Order Kids Subscription Form
+app.post("/order-kids-subscription", urlencodedParser, async function (request, response) {
+    const { name, email, phone, plan } = request.body;
+
+    try {
+        // =========================================================
+        // TODO: HIGHLIGHTED CODE FOR INDEPENDENT REFINEMENT
+        // Here you can set up Airtable (e.g. airtable.createSubscription(...))
+        // and refine the email logic as needed.
+        // =========================================================
+        
+        const message = {
+            to: smtp.to,
+            subject: `Kids School Membership Order: ${plan} - AClub`,
+            text: `New Kids School membership order! Plan: ${plan}, Name: ${name}, Email: ${email}, Phone: ${phone}`,
+            html: `<h3>New Kids School Membership Order</h3>
+        <b>Selected plan:</b> ${plan} <br/>
+        <b>Name:</b> ${name} <br/>
+        <b>Email:</b> ${email} <br/>
+        <b>Phone:</b> ${phone} <br/>`
+        };
+        await sendMail(message);
+
+        // =========================================================
+
+        response.format({
+            'text/html': () => response.redirect(303, '/thank-you'),
+            'application/json': () => response.json({ success: true }),
+        });
+    } catch (err) {
+        console.log(`Error processing Kids School membership order from ${name}:`, err);
+        response.status(500).json({ error: 'error saving order information' });
+    }
+});
 
 // Order form on the cart page
 app.post("/cart-submit", urlencodedParser, async function (request, response) {

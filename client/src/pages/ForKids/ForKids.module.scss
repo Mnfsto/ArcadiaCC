@@ -62,11 +62,24 @@ $pixel-border-yellow: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding=
   img { height: 36px; }
 }
 
+.topRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .nav {
-  float: right;
+  display: flex;
+  align-items: center;
+  ul {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+  }
   li {
-    display: inline-block;
-    margin-left: 20px;
+    display: flex;
+    margin-left: 8px;
   }
 }
 
@@ -292,6 +305,8 @@ $pixel-border-yellow: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding=
   text-align: left;
   position: relative;
   transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
 
   &:hover {
     transform: translateY(-4px);
@@ -358,6 +373,7 @@ $pixel-border-yellow: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding=
   list-style: none;
   padding: 0;
   margin: 0 0 24px;
+  flex-grow: 1;
 
   li {
     color: rgba($white, 0.82);
@@ -566,6 +582,178 @@ $pixel-border-yellow: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding=
   &:hover { color: $white; }
 }
 
+// ─── Top Bar (header row) ─────────────────────────────────────
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0;
+}
+
+// ─── Hamburger ────────────────────────────────────────────────
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  flex-shrink: 0;
+
+  span {
+    display: block;
+    height: 3px;
+    background: $white;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+    image-rendering: pixelated;
+  }
+
+  &.hamburgerOpen {
+    span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    span:nth-child(2) { opacity: 0; }
+    span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+  }
+}
+
+// ─── Mobile Nav Overlay ───────────────────────────────────────
+.mobileNav {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.mobileNavInner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 260px;
+  height: 100%;
+  background: $blue;
+  @include pixel-border($pixel-border-yellow);
+  padding: 60px 32px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mobileNavClose {
+  position: absolute;
+  top: 14px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: $secondary;
+  font-size: 2rem;
+  cursor: pointer;
+  line-height: 1;
+
+  &:hover { color: $white; }
+}
+
+.mobileNavLink {
+  display: block;
+  color: $white;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba($secondary, 0.15);
+  text-decoration: none;
+  transition: color 0.15s;
+
+  &:hover { color: $secondary; }
+}
+
+.mobileNavSocials {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+
+  img { height: 24px; opacity: 0.85; }
+}
+
+// ─── Training Schedule ────────────────────────────────────────
+.scheduleSection {
+  margin: 0 auto 80px;
+  max-width: 860px;
+  text-align: center;
+}
+
+.scheduleGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  text-align: left;
+  @include pixel-border($pixel-border-yellow);
+  overflow: hidden;
+}
+
+.scheduleRow {
+  display: grid;
+  grid-template-columns: 56px 70px 1fr;
+  gap: 0;
+  align-items: center;
+  padding: 14px 20px;
+  background-color: rgba($blue, 0.82);
+  border-bottom: 2px solid rgba($secondary, 0.12);
+  transition: background-color 0.15s;
+
+  &:last-child { border-bottom: none; }
+  &:hover { background-color: rgba($blue, 1); }
+}
+
+.scheduleRowRest {
+  background-color: rgba($dark, 0.5);
+  opacity: 0.7;
+}
+
+.scheduleRowBig {
+  background-color: rgba(80, 10, 6, 0.88);
+  border-bottom: none;
+}
+
+.scheduleDay {
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: $secondary;
+  text-transform: uppercase;
+}
+
+.scheduleTime {
+  font-size: 0.82rem;
+  font-weight: bold;
+  color: $white;
+  letter-spacing: 0.04em;
+  padding-right: 12px;
+
+  span { font-size: 0.72rem; color: rgba($white, 0.6); }
+}
+
+.scheduleDesc {
+  font-size: 0.85rem;
+  color: rgba($white, 0.85);
+  line-height: 1.6;
+
+  strong { color: $white; font-weight: 700; }
+}
+
+@media (max-width: 560px) {
+  .scheduleRow {
+    grid-template-columns: 46px 58px 1fr;
+    padding: 12px 14px;
+  }
+  .scheduleDay { font-size: 0.65rem; }
+  .scheduleTime { font-size: 0.72rem; }
+  .scheduleDesc { font-size: 0.78rem; }
+}
+
 // ─── JoinUs Banner ───────────────────────────────────────────
 .joinUsBanner {
   text-align: center;
@@ -593,14 +781,92 @@ $pixel-border-yellow: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding=
 // ─── Footer ──────────────────────────────────────────────────
 .footer {
   width: 100%;
-  position: relative;
   clear: both;
-  padding: 20px 0 40px;
+  background-color: rgba($blue, 0.95);
+  @include pixel-border($pixel-border-yellow);
+  margin-top: 20px;
+}
+
+.footerInner {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 40px;
+  padding: 40px 48px 32px;
+
+  @media (max-width: 680px) {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 32px 24px 24px;
+  }
+}
+
+.footerLogo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  img { height: 32px; }
 
   p {
-    text-align: center;
-    font-size: 0.8em;
+    font-size: 0.75rem;
     color: rgba($white, 0.5);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+}
+
+.footerLabel {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  color: $secondary;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.footerLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  a {
+    font-size: 0.82rem;
+    color: rgba($white, 0.7);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.15s;
+
+    &:hover { color: $secondary; }
+  }
+}
+
+.footerSocials {
+  display: flex;
+  flex-direction: column;
+}
+
+.footerSocialIcons {
+  display: flex;
+  gap: 16px;
+
+  img { height: 22px; opacity: 0.8; transition: opacity 0.15s; }
+  a:hover img { opacity: 1; }
+}
+
+.footerBottom {
+  border-top: 2px solid rgba($secondary, 0.15);
+  padding: 14px 48px;
+
+  p {
+    font-size: 0.72rem;
+    color: rgba($white, 0.35);
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 680px) {
+    padding: 14px 24px;
   }
 }
 

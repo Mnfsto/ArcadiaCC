@@ -8,9 +8,11 @@ const PIXEL_BORDER_DARK = `url('data:image/svg+xml;utf8,<?xml version="1.0" enco
 export default function ForKids() {
     const navigate = useNavigate();
     const [modal, setModal] = useState(false);
-    const [orderModal, setOrderModal] = useState(null); // 'starter' | 'pro' | 'semi-starter' | 'semi-pro'
+    const [orderModal, setOrderModal] = useState(null);
+    const [menuOpen, setMenuOpen] = useState(false);
 
     const openModal = () => setModal(!modal);
+    const toggleMenu = () => setMenuOpen(o => !o);
 
     useEffect(() => {
         document.body.style.backgroundColor = "#d40000";
@@ -34,22 +36,54 @@ export default function ForKids() {
         <div className={styles.body}>
             {/* ── Header ─────────────────────────────────────── */}
             <header className={styles.header}>
-                <div className="head clearfix">
+                <div className={styles.topBar}>
                     <div className={styles.logo}>
                         <a href="/"><img alt="Arcadia CC" src="/image/logoArcadia.svg" /></a>
                     </div>
-                    <nav className={styles.nav}>
-                        <ul>
-                            <li><a href="https://www.facebook.com/ArcadiaCyclingClub"><img alt="Facebook" src="/image/iconFacebook.svg" /></a></li>
-                            <li><a href="https://www.instagram.com/arcadia_cycling_club/"><img alt="Instagram" src="/image/iconInstagram.svg" /></a></li>
-                        </ul>
-                    </nav>
+
+                    <div className={styles.topRight}>
+                        {/* desktop social icons */}
+                        <nav className={styles.nav}>
+                            <ul>
+                                <li><a href="https://www.facebook.com/ArcadiaCyclingClub"><img alt="Facebook" src="/image/iconFacebook.svg" /></a></li>
+                                <li><a href="https://www.instagram.com/arcadia_cycling_club/"><img alt="Instagram" src="/image/iconInstagram.svg" /></a></li>
+                            </ul>
+                        </nav>
+
+                        {/* hamburger */}
+                        <button
+                            className={`${styles.hamburger} ${menuOpen ? styles.hamburgerOpen : ''}`}
+                            onClick={toggleMenu}
+                            aria-label="Toggle menu"
+                            aria-expanded={menuOpen}
+                        >
+                            <span /><span /><span />
+                        </button>
+                    </div>
                 </div>
+
                 <div className={styles.heroText}>
                     <img className={styles.gameon} src="/image/gameon.svg" alt="Game On" />
                     <img src="/image/PIXEL_FIGHTER.svg" alt="Pixel Fighter" />
                 </div>
             </header>
+
+            {/* ── Mobile Nav Overlay ──────────────────────── */}
+            {menuOpen && (
+                <div className={styles.mobileNav} onClick={toggleMenu}>
+                    <div className={styles.mobileNavInner} onClick={e => e.stopPropagation()}>
+                        <button className={styles.mobileNavClose} onClick={toggleMenu}>&times;</button>
+                        <a href="/" className={styles.mobileNavLink}>🏠 Home</a>
+                        <a href="/about" className={styles.mobileNavLink}>👥 About</a>
+                        <a href="#schedule" className={styles.mobileNavLink} onClick={toggleMenu}>📅 Schedule</a>
+                        <a href="#contact-form" className={styles.mobileNavLink} onClick={toggleMenu}>✉️ Join Us</a>
+                        <div className={styles.mobileNavSocials}>
+                            <a href="https://www.facebook.com/ArcadiaCyclingClub"><img alt="Facebook" src="/image/iconFacebook.svg" /></a>
+                            <a href="https://www.instagram.com/arcadia_cycling_club/"><img alt="Instagram" src="/image/iconInstagram.svg" /></a>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <main className="clearfix">
 
@@ -216,6 +250,79 @@ export default function ForKids() {
                     </div>
                 </section>
 
+                {/* ── Training Schedule ─────────────────────── */}
+                <section id="schedule" className={styles.scheduleSection}>
+                    <h2 className={styles.plansTitle}>▶ TRAINING SCHEDULE</h2>
+                    <p className={styles.plansSub}>
+                        We believe sport should be open and accessible to everyone.
+                        Join us on our rides:
+                    </p>
+
+                    <div className={styles.scheduleGrid}>
+                        <div className={styles.scheduleRow}>
+                            <div className={styles.scheduleDay}>MON</div>
+                            <div className={styles.scheduleTime}>07:00</div>
+                            <div className={styles.scheduleDesc}>
+                                <strong>Start: Arcadia — Health Track</strong><br />
+                                Cool-down ride (easy recovery cycling)
+                            </div>
+                        </div>
+
+                        <div className={`${styles.scheduleRow} ${styles.scheduleRowRest}`}>
+                            <div className={styles.scheduleDay}>TUE</div>
+                            <div className={styles.scheduleTime}>—</div>
+                            <div className={styles.scheduleDesc}>
+                                Rest day or free ride finishing at the Arcadia Sanatorium
+                            </div>
+                        </div>
+
+                        <div className={styles.scheduleRow}>
+                            <div className={styles.scheduleDay}>WED</div>
+                            <div className={styles.scheduleTime}>07:00</div>
+                            <div className={styles.scheduleDesc}>
+                                <strong>Start: Arcadia — Health Track</strong><br />
+                                Main training session
+                            </div>
+                        </div>
+
+                        <div className={styles.scheduleRow}>
+                            <div className={styles.scheduleDay}>THU</div>
+                            <div className={styles.scheduleTime}>11:00</div>
+                            <div className={styles.scheduleDesc}>
+                                <strong>Arcadia Sanatorium</strong><br />
+                                Group kids' training session
+                            </div>
+                        </div>
+
+                        <div className={styles.scheduleRow}>
+                            <div className={styles.scheduleDay}>FRI</div>
+                            <div className={styles.scheduleTime}>07:00</div>
+                            <div className={styles.scheduleDesc}>
+                                <strong>Health Track</strong><br />
+                                Easy ride
+                            </div>
+                        </div>
+
+                        <div className={styles.scheduleRow}>
+                            <div className={styles.scheduleDay}>SAT</div>
+                            <div className={styles.scheduleTime}>12:00</div>
+                            <div className={styles.scheduleDesc}>
+                                <strong>Lanzeron, «Sport Territory»</strong><br />
+                                Group kids' training session
+                            </div>
+                        </div>
+
+                        <div className={`${styles.scheduleRow} ${styles.scheduleRowBig}`}>
+                            <div className={styles.scheduleDay}>SUN</div>
+                            <div className={styles.scheduleTime}>11:00<br /><span>12:00</span></div>
+                            <div className={styles.scheduleDesc}>
+                                <strong>Lanzeron, «Sport Territory»</strong><br />
+                                Kids' group training &amp; big club meetup ⭐
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 {/* ── Join Form ──────────────────────────────── */}
                 <section className={styles.joinSection}>
                     <h2 className={styles.joinTitle}>▶ JOIN PIXEL FIGHTER</h2>
@@ -242,7 +349,35 @@ export default function ForKids() {
                 </div>
 
                 <footer className={styles.footer}>
-                    <p>Copyright © 2025. All rights reserved.</p>
+                    <div className={styles.footerInner}>
+                        <div className={styles.footerLogo}>
+                            <a href="/"><img src="/image/logoArcadia.svg" alt="Arcadia CC" /></a>
+                            <p>Arcadia Cycling Club</p>
+                        </div>
+
+                        <div className={styles.footerLinks}>
+                            <span className={styles.footerLabel}>EXPLORE</span>
+                            <a href="/">Home</a>
+                            <a href="/about">About</a>
+                            <a href="#schedule">Schedule</a>
+                            <a href="#contact-form">Join Us</a>
+                        </div>
+
+                        <div className={styles.footerSocials}>
+                            <span className={styles.footerLabel}>FOLLOW</span>
+                            <div className={styles.footerSocialIcons}>
+                                <a href="https://www.facebook.com/ArcadiaCyclingClub" target="_blank" rel="noreferrer">
+                                    <img alt="Facebook" src="/image/iconFacebook.svg" />
+                                </a>
+                                <a href="https://www.instagram.com/arcadia_cycling_club/" target="_blank" rel="noreferrer">
+                                    <img alt="Instagram" src="/image/iconInstagram.svg" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={styles.footerBottom}>
+                        <p>Copyright © 2025 Arcadia Cycling Club. All rights reserved.</p>
+                    </div>
                 </footer>
             </main>
 
@@ -259,8 +394,26 @@ export default function ForKids() {
                         </h3>
                         <p>Leave a request and we will contact you within the day to confirm and arrange payment.</p>
                         <form
-                            onSubmit={(e) => {
+                            onSubmit={async (e) => {
                                 e.preventDefault();
+                                const formData = new FormData(e.target);
+                                const data = {
+                                    plan: orderModal,
+                                    name: formData.get('name'),
+                                    email: formData.get('email'),
+                                    phone: formData.get('phone')
+                                };
+                                
+                                try {
+                                    await fetch('/order-kids-subscription', {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify(data)
+                                    });
+                                } catch (err) {
+                                    console.error("Order error", err);
+                                }
+                                
                                 setOrderModal(null);
                                 navigate('/success');
                             }}
