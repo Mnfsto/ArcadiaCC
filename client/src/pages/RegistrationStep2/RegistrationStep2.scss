@@ -291,6 +291,18 @@
     }
   }
 
+  .submit-error {
+    background: rgba(212, 0, 0, 0.1);
+    border: 1px solid rgba(212, 0, 0, 0.4);
+    border-radius: 6px;
+    color: #ff6b6b;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 12px 18px;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
   .submit-btn {
     width: 100%;
     background-color: $primary;
@@ -322,17 +334,17 @@
 
   .success-message {
     text-align: center;
-    padding: 60px 20px;
+    padding: 40px 20px;
 
     @media screen and (max-width: 768px) {
       padding: 30px 20px;
     }
     
     .check-icon {
-      width: 80px;
-      height: 80px;
+      width: 60px;
+      height: 60px;
       fill: #2ecc71;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
 
       @media screen and (max-width: 768px) {
         width: 40px;
@@ -342,20 +354,19 @@
     }
 
     h2 {
-      font-size: 2rem;
-      margin-bottom: 15px;
+      font-size: 1.8rem;
+      margin-bottom: 10px;
       color: #fff;
 
       @media screen and (max-width: 768px) {
         font-size: 1.5rem;
-        margin-bottom: 10px;
       }
     }
 
     p {
       font-size: 1.1rem;
       color: rgba(255, 255, 255, 0.8);
-      margin-bottom: 30px;
+      margin-bottom: 20px;
 
       @media screen and (max-width: 768px) {
         font-size: 0.95rem;
@@ -366,22 +377,27 @@
     img {
       max-width: 100%;
       height: auto;
-      width: 300px;
-      margin-top: 30px;
+      width: 220px;
+      margin-top: 15px;
       border-radius: 8px;
 
       @media screen and (max-width: 768px) {
-        width: 100%;
         max-width: 160px;
-        margin-top: 15px;
+        margin-top: 10px;
       }
     }
 
     .action-btn-container {
-      margin-top: 30px;
+      margin-top: 25px;
+      display: flex;
+      justify-content: center;
 
       @media screen and (max-width: 768px) {
         margin-top: 15px;
+      }
+
+      .submit-btn {
+        max-width: 250px;
       }
     }
   }

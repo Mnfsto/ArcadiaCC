@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{subject}}</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: #111111;
+      font-family: 'Open Sans', Arial, sans-serif;
+      color: #ffffff;
+      padding: 40px 20px;
+    }
+
+    .email-wrapper {
+      max-width: 620px;
+      margin: 0 auto;
+      background-color: #141414;
+      border: 2px solid #d40000;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.8), 0 0 20px rgba(212,0,0,0.15);
+    }
+
+    /* ─── HEADER ─── */
+    .email-header {
+      background-color: #d40000;
+      padding: 32px 40px;
+      text-align: center;
+      position: relative;
+    }
+
+    .email-header__logo {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: #ffffff;
+      opacity: 0.7;
+      margin-bottom: 10px;
+    }
+
+    .email-header__title {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .email-header__stripe {
+      display: block;
+      width: 48px;
+      height: 3px;
+      background: rgba(255,255,255,0.5);
+      margin: 16px auto 0;
+      border-radius: 2px;
+    }
+
+    /* ─── BODY ─── */
+    .email-body {
+      padding: 36px 40px;
+    }
+
+    .email-greeting {
+      font-size: 15px;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    /* ─── INFO CARD ─── */
+    .info-card {
+      background: rgba(212,0,0,0.06);
+      border: 1px solid rgba(212,0,0,0.25);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+
+    .info-card__header {
+      background: rgba(212,0,0,0.15);
+      padding: 12px 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #d40000;
+    }
+
+    .info-card__body {
+      padding: 4px 0;
+    }
+
+    .info-row {
+      display: flex;
+      align-items: baseline;
+      padding: 12px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .info-row:last-child {
+      border-bottom: none;
+    }
+
+    .info-row__label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      min-width: 120px;
+      flex-shrink: 0;
+    }
+
+    .info-row__value {
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    /* ─── OPTIONAL SECTIONS ─── */
+    {{#if disciplines}}
+    {{/if}}
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: rgba(212,0,0,0.2);
+      border: 1px solid rgba(212,0,0,0.4);
+      color: #d40000;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* ─── NOTICE ─── */
+    .notice {
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid #d40000;
+      border-radius: 0 6px 6px 0;
+      padding: 14px 18px;
+      margin-bottom: 28px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.6;
+    }
+
+    /* ─── FOOTER ─── */
+    .email-footer {
+      padding: 24px 40px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      text-align: center;
+    }
+
+    .email-footer__links {
+      margin-bottom: 14px;
+    }
+
+    .email-footer__links a {
+      color: #d40000;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin: 0 10px;
+    }
+
+    .email-footer__copy {
+      font-size: 11px;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-wrapper">
+
+    <!-- HEADER -->
+    <div class="email-header">
+      <div class="email-header__logo">Arcadia Cycling Club</div>
+      <div class="email-header__title">{{headerTitle}}</div>
+      <span class="email-header__stripe"></span>
+    </div>
+
+    <!-- BODY -->
+    <div class="email-body">
+
+      {{#if greeting}}
+      <p class="email-greeting">{{greeting}}</p>
+      {{/if}}
+
+      <!-- MEMBER INFO -->
+      <div class="info-card">
+        <div class="info-card__header">Member Details</div>
+        <div class="info-card__body">
+
+          {{#if fullName}}
+          <div class="info-row">
+            <span class="info-row__label">Full Name</span>
+            <span class="info-row__value">{{fullName}}</span>
+          </div>
+          {{/if}}
+
+          {{#if email}}
+          <div class="info-row">
+            <span class="info-row__label">Email</span>
+            <span class="info-row__value">{{email}}</span>
+          </div>
+          {{/if}}
+
+          {{#if phone}}
+          <div class="info-row">
+            <span class="info-row__label">Phone</span>
+            <span class="info-row__value">{{phone}}</span>
+          </div>
+          {{/if}}
+
+          {{#if dob}}
+          <div class="info-row">
+            <span class="info-row__label">Date of birth</span>
+            <span class="info-row__value">{{dob}}</span>
+          </div>
+          {{/if}}
+
+          {{#if city}}
+          <div class="info-row">
+            <span class="info-row__label">City</span>
+            <span class="info-row__value">{{city}}</span>
+          </div>
+          {{/if}}
+
+          {{#if emergencyContact}}
+          <div class="info-row">
+            <span class="info-row__label">Emergency</span>
+            <span class="info-row__value">{{emergencyContact}}</span>
+          </div>
+          {{/if}}
+
+          {{#if mileage}}
+          <div class="info-row">
+            <span class="info-row__label">Mileage / yr</span>
+            <span class="info-row__value">{{mileage}} km</span>
+          </div>
+          {{/if}}
+
+          {{#if strava}}
+          <div class="info-row">
+            <span class="info-row__label">Strava</span>
+            <span class="info-row__value">{{strava}}</span>
+          </div>
+          {{/if}}
+
+          {{#if plan}}
+          <div class="info-row">
+            <span class="info-row__label">Plan</span>
+            <span class="info-row__value">{{plan}}</span>
+          </div>
+          {{/if}}
+
+          {{#if orderId}}
+          <div class="info-row">
+            <span class="info-row__label">Order ID</span>
+            <span class="info-row__value">{{orderId}}</span>
+          </div>
+          {{/if}}
+
+        </div>
+      </div>
+
+      <!-- DISCIPLINES (optional) -->
+      {{#if disciplines}}
+      <div class="info-card" style="margin-bottom: 28px;">
+        <div class="info-card__header">Preferred Disciplines</div>
+        <div class="info-card__body" style="padding: 16px 20px;">
+          <div class="tag-list">
+            {{#each disciplines}}
+            <span class="tag">{{this}}</span>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+      {{/if}}
+
+      <!-- GOALS (optional) -->
+      {{#if goals}}
+      <div class="notice">
+        <strong style="color: rgba(255,255,255,0.7); display: block; margin-bottom: 4px;">Season Goals</strong>
+        {{goals}}
+      </div>
+      {{/if}}
+
+      <!-- ORDER ITEMS (optional, for cart) -->
+      {{#if orderItems}}
+      <div class="info-card">
+        <div class="info-card__header">Order Items</div>
+        <div class="info-card__body">
+          {{#each orderItems}}
+          <div class="info-row">
+            <span class="info-row__label">{{this.name}}</span>
+            <span class="info-row__value">{{this.qty}} × {{this.price}}</span>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+      {{/if}}
+
+    </div><!-- /email-body -->
+
+    <!-- FOOTER -->
+    <div class="email-footer">
+      <div class="email-footer__links">
+        <a href="https://arcadia-odesa.club">Website</a>
+        <a href="https://instagram.com/arcadia_cycling_club">Instagram</a>
+        <a href="https://www.facebook.com/search/top?q=arcadia%20cycling%20club">Facebook</a>
+      </div>
+      <div class="email-footer__copy">
+        © {{year}} Arcadia Cycling Club · Odessa, Ukraine
+      </div>
+    </div>
+
+  </div><!-- /email-wrapper -->
+</body>
+</html>

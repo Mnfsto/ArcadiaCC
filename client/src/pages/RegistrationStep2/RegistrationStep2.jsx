@@ -98,11 +98,34 @@ const RegistrationStep2 = () => {
     );
   };
 
-  const handleSubmit = (e) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isFormValid()) {
+    if (!isFormValid()) return;
+
+    setIsLoading(true);
+    setSubmitError('');
+
+    try {
+      const res = await fetch('/api/join-step-2', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Server error. Please try again.');
+      }
+
       setIsSuccess(true);
       window.scrollTo(0, 0);
+    } catch (err) {
+      setSubmitError(err.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -303,8 +326,14 @@ const RegistrationStep2 = () => {
             </div>
           </div>
 
-          <button type="submit" className="submit-btn" disabled={!isFormValid()}>
-            Submit Application & Join Club
+          {submitError && (
+            <div className="submit-error">
+              ⚠️ {submitError}
+            </div>
+          )}
+
+          <button type="submit" className="submit-btn" disabled={!isFormValid() || isLoading}>
+            {isLoading ? 'Sending…' : 'Submit Application & Join Club'}
           </button>
         </form>
       </div>

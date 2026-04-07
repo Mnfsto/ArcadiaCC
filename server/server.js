@@ -11,7 +11,6 @@ const smtp = require('./mailer/config')
 const cookieParser = require('cookie-parser')
 const expressSession = require('express-session')
 const { credentials } = require('./lib/config')
-// ... (предыдущие импорты) ...
 const { auth, genId } = require('./lib/middleware/userSession')
 const { orderMessage, hashOrder } = require("./lib/orderData");
 
@@ -45,6 +44,45 @@ app.use(express.static(buildPath));
 // Handle GET requests to /api route
 app.get("/api", handlers.api);
 
+// Registration Step 2 — full member profile submission
+app.post("/api/join-step-2", express.json(), async function (request, response) {
+    const {
+        fullName, email, phone,
+        dob, city, emergencyContact,
+        mileage, disciplines, goals,
+        otherClubs, instagram, strava, garmin,
+    } = request.body;
+
+    try {
+        const message = {
+            to: smtp.to,
+            subject: `New Member Application — ${fullName} — Arcadia Cycling Club`,
+            template: 'newMember',
+            context: {
+                headerTitle: 'New Member Application',
+                greeting: `A new member has completed the full registration form.`,
+                fullName,
+                email,
+                phone,
+                dob,
+                city,
+                emergencyContact,
+                mileage,
+                disciplines: disciplines && disciplines.length ? disciplines : null,
+                goals: goals || null,
+                strava: strava || null,
+            },
+        };
+        await sendMail(message);
+
+        console.log(`[join-step-2] Application from ${fullName} (${email}) processed.`);
+        response.json({ success: true });
+    } catch (err) {
+        console.error(`[join-step-2] Error processing application from ${fullName}:`, err);
+        response.status(500).json({ error: 'Failed to process your application. Please try again.' });
+    }
+});
+
 // Form processing on the main page
 app.post("/", urlencodedParser, async function (request, response) {
     const userId = request.signedCookies.user_id;
@@ -69,12 +107,15 @@ app.post("/", urlencodedParser, async function (request, response) {
 
         const message = {
             to: smtp.to,
-            subject: 'Join Us Request - AClub',
-            text: `New Join Us request! Name: ${fullName}, Email: ${email}, Phone: ${phone}`,
-            html: `<h3>New Join Us Request!</h3>
-        <b>Name:</b> ${fullName} </br>
-        <b>Email:</b> ${email}</br>
-        <b>Phone:</b> ${phone}</br>`
+            subject: 'New Join Us Request — Arcadia Cycling Club',
+            template: 'newMember',
+            context: {
+                headerTitle: 'New Join Us Request',
+                greeting: 'A new member has submitted a Join Us request.',
+                fullName,
+                email,
+                phone,
+            },
         };
         await sendMail(message);
 
@@ -113,12 +154,15 @@ app.post("/sendPixel", urlencodedParser, async function (request, response) {
 
         const message = {
             to: smtp.to,
-            subject: 'New Pixel :)',
-            text: `New Pixel Fighter Member. Name: ${name}, Email: ${email}, Phone: ${phone}`,
-            html: `<h3>New Pixel Fighter Member</h3>
-        <b>Name:</b> ${name} </br>
-        <b>Email:</b> ${email}</br>
-        <b>Phone:</b> ${phone}</br>`
+            subject: 'New Pixel Fighter Member — Arcadia Cycling Club',
+            template: 'newMember',
+            context: {
+                headerTitle: 'New Pixel Fighter',
+                greeting: 'A new Pixel Fighter member has joined.',
+                fullName: name,
+                email,
+                phone,
+            },
         };
         await sendMail(message);
 
@@ -148,16 +192,19 @@ app.post("/order-kids-subscription", urlencodedParser, async function (request, 
         // Here you can set up Airtable (e.g. airtable.createSubscription(...))
         // and refine the email logic as needed.
         // =========================================================
-        
+
         const message = {
             to: smtp.to,
-            subject: `Kids School Membership Order: ${plan} - AClub`,
-            text: `New Kids School membership order! Plan: ${plan}, Name: ${name}, Email: ${email}, Phone: ${phone}`,
-            html: `<h3>New Kids School Membership Order</h3>
-        <b>Selected plan:</b> ${plan} <br/>
-        <b>Name:</b> ${name} <br/>
-        <b>Email:</b> ${email} <br/>
-        <b>Phone:</b> ${phone} <br/>`
+            subject: `Kids School Membership Order: ${plan} — Arcadia Cycling Club`,
+            template: 'newMember',
+            context: {
+                headerTitle: 'Kids School Membership Order',
+                greeting: 'A new Kids School membership order has been received.',
+                fullName: name,
+                email,
+                phone,
+                plan,
+            },
         };
         await sendMail(message);
 
@@ -192,16 +239,16 @@ app.post("/cart-submit", urlencodedParser, async function (request, response) {
 
         const message = {
             to: smtp.to,
-            subject: 'Заказ с магазина - AClub',
-            text: `Новый Заказ! Имя: ${name}, Email: ${email}, Телефон: ${phone}`,
-            html: `<h3>Новый Заказ!</h3>
-        <b>Имя:</b> ${name} </br>
-        <b>Email:</b> ${email}</br>
-        <b>Телефон:</b> ${phone}</br>
-        <b>id:</b> ${orderId}</br>
-        <b> Order:</b>
-            <b> ${orderHtml}</b>`
-
+            subject: `New Shop Order — Arcadia Cycling Club`,
+            template: 'newMember',
+            context: {
+                headerTitle: 'New Shop Order',
+                greeting: 'A new order has been placed through the club store.',
+                fullName: name,
+                email,
+                phone,
+                orderId,
+            },
         }
         await sendMail(message)
 
