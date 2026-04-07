@@ -38,7 +38,7 @@ app.use(genId)
 app.get('/auth', auth)
 
 // Have Node serve the files for our built React app
-const buildPath = path.join(process.cwd(), 'client/build');
+const buildPath = path.join(__dirname, '../client/build');
 app.use(express.static(buildPath));
 
 // Handle GET requests to /api route
