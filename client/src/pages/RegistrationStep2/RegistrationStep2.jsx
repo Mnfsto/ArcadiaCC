@@ -114,7 +114,7 @@ const RegistrationStep2 = () => {
           <h2>Thank you!</h2>
           <p>Your application has been submitted successfully.<br />We will contact you shortly.</p>
           <img src="/image/Kit.png" alt="Arcadia CC Kit" />
-          <div style={{ marginTop: '30px' }}>
+          <div className="action-btn-container">
             <button className="submit-btn" onClick={() => navigate('/')}>Return to Homepage</button>
           </div>
         </div>
@@ -229,54 +229,66 @@ const RegistrationStep2 = () => {
 
             <div className="contract-box">
               <div className="contract-box-intro">
-                Welcome to Arcadia Cycling Club! Our club is a community of like-minded people united by a passion for cycling.
-                By joining our ranks, you become the face of the club. To maintain the high level of our team and respect for our partners,
-                each member assumes the following obligations:
+                Welcome to Arcadia Cycling Club! Our club is a community of like-minded people united by a passion for cycling. By joining our ranks, you become the official face of the club. To maintain the high status of the team, its safety, and respect for partners, each member assumes the following obligations:
               </div>
 
               <div className="accordion">
                 <AccordionItem
-                  title="Point 1. Team Spirit and Ethics"
+                  title="1. Team Spirit, Ethics, and Discipline"
                   isOpen={openAccordion === 1}
                   onClick={() => toggleAccordion(1)}
                   content={
                     <ul>
-                      <li><strong>Mutual assistance:</strong> I pledge to help, respect and support my clubmates both in training and competitions, and beyond.</li>
-                      <li><strong>Culture of behavior:</strong> I pledge to observe traffic rules and behave correctly towards other road users, understanding that in the club kit I represent the entire Arcadia Cycling Club team.</li>
+                      <li><strong>Mutual assistance:</strong> I pledge to help, respect, and support my clubmates both in training and competitions, and beyond. Team interests are higher than personal sports ambitions within team rides.</li>
+                      <li><strong>Culture of behavior:</strong> I pledge to observe traffic rules and behave correctly towards other road users. Any display of aggression or unsportsmanlike behavior in the club kit is unacceptable.</li>
+                      <li><strong>Attendance:</strong> I pledge to actively participate in the life of the club whenever possible, and to be present at general training sessions and official meetings.</li>
                     </ul>
                   }
                 />
                 <AccordionItem
-                  title="Point 2. Equipment and Training"
+                  title="2. Equipment, Safety, and Assets"
                   isOpen={openAccordion === 2}
                   onClick={() => toggleAccordion(2)}
                   content={
                     <ul>
-                      <li><strong>Club Kit:</strong> I pledge to attend all official club training sessions, rides and competitions exclusively in the current club kit and paraphernalia.</li>
-                      <li><strong>Safety:</strong> I pledge to always use a bicycle helmet during rides. Riding without a helmet at club events is strictly prohibited.</li>
+                      <li><strong>Club Kit:</strong> I pledge to be present at all official training sessions, races, and podiums exclusively in the current kit and paraphernalia of the club for the current season.</li>
+                      <li><strong>Safety (No Helmet — No Ride):</strong> I pledge to always use a fastened bicycle helmet. Riding without a helmet or with an unfastened strap at club events is strictly prohibited.</li>
+                      <li><strong>Care of assets:</strong> I pledge to take good care of the property and assets of the club provided to me for temporary use (technical base, equipment, support vehicles).</li>
                     </ul>
                   }
                 />
                 <AccordionItem
-                  title="Point 3. Media and Partners"
+                  title="3. Media and Partner Support"
                   isOpen={openAccordion === 3}
                   onClick={() => toggleAccordion(3)}
                   content={
                     <ul>
-                      <li><strong>Support for partners:</strong> I pledge to tag the official club accounts (@arcadiacyclingclub) and its current partners in my social media posts and stories when posting content from training and races.</li>
-                      <li><strong>Consent to the use of media:</strong> I give my consent to Arcadia Cycling Club to use my photos and videos from club events free of charge for publication on social networks, on the club's website and in promotional materials for partners.</li>
+                      <li><strong>Activity in social networks:</strong> I pledge to tag the official club account (@arcadia_cycling_club) and the accounts of active partners when publishing any content related to the club's activities.</li>
+                      <li><strong>Brand protection:</strong> I pledge to avoid public statements that disrepute the club or its partners.</li>
+                      <li><strong>Consent to the use of media:</strong> I give indefinite consent to the club to use my image (photos and videos) obtained during events for promotional materials, the website, and reports to partners.</li>
                     </ul>
                   }
                 />
                 <AccordionItem
-                  title="Point 4. Financial and Legal Conditions"
+                  title="4. Financial and Legal Conditions"
                   isOpen={openAccordion === 4}
                   onClick={() => toggleAccordion(4)}
                   content={
                     <ul>
-                      <li><strong>Membership fee:</strong> I confirm my readiness to pay the mandatory annual membership fee of 250 euros.</li>
-                      <li><strong>Sports license:</strong> I pledge to issue/provide a valid sports license for the current year, necessary to participate in official starts.</li>
-                      <li><strong>Responsibility for health:</strong> I confirm that I have no medical contraindications to cycling, and I take personal responsibility for the state of my health during training.</li>
+                      <li><strong>Membership fee:</strong> I pledge to pay the annual fee of 250 euros. (These funds are directed to the development of cycling in the Odessa region; in return, the participant gets the right to use the club's assets, access to the sports community, and official support from the Cycling Federation of Ukraine, of which we are a branch).</li>
+                      <li><strong>FCU License:</strong> I pledge to arrange a valid sports license of the Cycling Federation of Ukraine for the current year. This is a prerequisite for participating in official starts and providing insurance coverage.</li>
+                      <li><strong>Health and responsibility:</strong> I confirm that I have undergone a medical examination and have no contraindications. I am aware that cycling is a high-risk activity, and I take full responsibility for any injuries or damages incurred during training or racing, releasing the club from any legal claims.</li>
+                    </ul>
+                  }
+                />
+                <AccordionItem
+                  title="5. Term and Termination"
+                  isOpen={openAccordion === 5}
+                  onClick={() => toggleAccordion(5)}
+                  content={
+                    <ul>
+                      <li><strong>Term:</strong> This agreement is valid for one calendar year from the moment the fee is paid.</li>
+                      <li><strong>Termination:</strong> The club reserves the right to exclude a participant without a refund of the fee for a gross violation of traffic rules, safety rules, unsportsmanlike behavior, or actions that harm the reputation of the club or its partners.</li>
                     </ul>
                   }
                 />
