@@ -109,7 +109,7 @@ const RegistrationStep2 = () => {
     setSubmitError('');
 
     try {
-      const res = await fetch('/api/join-step-2', {
+      const res = await fetch('/join-step-2', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
