@@ -116,8 +116,14 @@ const RegistrationStep2 = () => {
       });
 
       if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || 'Server error. Please try again.');
+        // Safe parsing: if it's not JSON (like an HTML error page), we show a generic message
+        const isJson = res.headers.get('content-type')?.includes('application/json');
+        if (isJson) {
+           const data = await res.json();
+           throw new Error(data.error || 'Server error. Please try again.');
+        } else {
+           throw new Error(`Server connection error (${res.status}). Please make sure your backend is updated and running.`);
+        }
       }
 
       setIsSuccess(true);
