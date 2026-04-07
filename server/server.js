@@ -45,7 +45,7 @@ app.use(express.static(buildPath));
 app.get("/api", handlers.api);
 
 // Registration Step 2 — full member profile submission
-app.post("/join-step-2", express.json(), async function (request, response) {
+app.post("/api/join-step-2", express.json(), async function (request, response) {
     const {
         fullName, email, phone,
         dob, city, emergencyContact,
