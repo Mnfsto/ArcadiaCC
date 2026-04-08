@@ -115,11 +115,13 @@ $pixel-border-yellow: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding=
     line-height: inherit;
     margin: 0 auto 60px;
 
+
     a {
       font-size: 1em;
       padding-left: 5px;
       color: $secondary;
       cursor: pointer;
+      border-bottom: 2px dashed #F7EF87;
     }
 
     img {
@@ -691,6 +693,7 @@ $pixel-border-yellow: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding=
   gap: 0;
   text-align: left;
   @include pixel-border($pixel-border-yellow);
+  border-image-width: 17px;
   overflow: hidden;
 }
 
@@ -761,7 +764,7 @@ $pixel-border-yellow: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding=
   max-width: 700px;
 
   img {
-    width: 100%;
+    width: 70%;
     height: auto;
     display: block;
     margin: 0 auto;

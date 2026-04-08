@@ -16,9 +16,9 @@ export default function ForKids() {
 
     useEffect(() => {
         document.body.style.backgroundColor = "#d40000";
-        document.body.style.backgroundImage = "url('./image/backgroundWebForKids.gif')";
+        document.body.style.backgroundImage = "url('./image/Arcadia_PixelBack.jpg')";
         document.body.style.backgroundRepeat = "no-repeat";
-        document.body.style.backgroundPosition = "center center";
+        //document.body.style.backgroundPosition = "center center";
         document.body.style.backgroundAttachment = "fixed";
         document.body.style.backgroundSize = "cover";
 
