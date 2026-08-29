@@ -831,7 +831,7 @@ body {
 
 .scheduleRow {
   display: grid;
-  grid-template-columns: 56px 70px 1fr;
+  grid-template-columns: 85px 120px 1fr;
   gap: 0;
   align-items: center;
   padding: 14px 20px;
@@ -888,7 +888,7 @@ body {
 
 @media (max-width: 560px) {
   .scheduleRow {
-    grid-template-columns: 46px 58px 1fr;
+    grid-template-columns: 65px 95px 1fr;
     padding: 12px 14px;
   }
   .scheduleDay {

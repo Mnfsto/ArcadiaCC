@@ -2,9 +2,6 @@ import styles from "./ForKids.module.scss"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-/* ─── pixel SVG border helper ─────────────────────────────── */
-const PIXEL_BORDER_DARK = `url('data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8" ?><svg version="1.1" width="8" height="8" xmlns="http://www.w3.org/2000/svg"><path d="M3 1 h1 v1 h-1 z M4 1 h1 v1 h-1 z M2 2 h1 v1 h-1 z M5 2 h1 v1 h-1 z M1 3 h1 v1 h-1 z M6 3 h1 v1 h-1 z M1 4 h1 v1 h-1 z M6 4 h1 v1 h-1 z M2 5 h1 v1 h-1 z M5 5 h1 v1 h-1 z M3 6 h1 v1 h-1 z M4 6 h1 v1 h-1 z" fill="rgb(33,37,41)" /></svg>')`;
-
 export default function ForKids() {
     const navigate = useNavigate();
     const [modal, setModal] = useState(false);
@@ -146,6 +143,80 @@ export default function ForKids() {
                     </div>
                 </section>
 
+                {/* ── Join Form ──────────────────────────────── */}
+                <section className={styles.joinSection}>
+                    <h2 className={styles.joinTitle}>▶ JOIN PIXEL FIGHTER</h2>
+                    <form
+                        className={styles.form}
+                        id="contact-form"
+                        onSubmit={async (e) => {
+                            e.preventDefault();
+                            const formData = new FormData(e.target);
+                            const data = {
+                                name: formData.get('name'),
+                                email: formData.get('email'),
+                                phone: formData.get('phone')
+                            };
+                            
+                            try {
+                                await fetch('/api/sendPixel', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify(data)
+                                });
+                            } catch (err) {
+                                console.error("Join error", err);
+                            }
+                            
+                            navigate('/success');
+                        }}
+                    >
+                        <fieldset>
+                            <input className="is-circle" type="text" name="name" placeholder="Full Name" required />
+                            <input className="is-circle" type="email" name="email" placeholder="Email" required />
+                            <input className="is-circle" type="tel" name="phone" placeholder="Phone" required />
+                            <input className="is-circle" type="submit" value="SUBMIT" />
+                        </fieldset>
+                    </form>
+                </section>
+
+                {/* ── Training Schedule ─────────────────────── */}
+                <section id="schedule" className={styles.scheduleSection}>
+                    <h2 className={styles.plansTitle}>▶ TRAINING SCHEDULE</h2>
+                    <p className={styles.plansSub}>
+                        We believe sport should be open and accessible to everyone.
+                        Join us on our rides:
+                    </p>
+
+                    <div className={styles.scheduleGrid}>
+                        <div className={styles.scheduleRow}>
+                            <div className={styles.scheduleDay}>TUE – FRI</div>
+                            <div className={styles.scheduleTime}>14:30 – 18:15</div>
+                            <div className={styles.scheduleDesc}>
+                                <strong>Group Kids' Training Sessions</strong><br />
+                                Вторник – Пятница
+                            </div>
+                        </div>
+
+                        <div className={`${styles.scheduleRow} ${styles.scheduleRowBig}`}>
+                            <div className={styles.scheduleDay}>SAT – SUN</div>
+                            <div className={styles.scheduleTime}>09:00 – 12:00</div>
+                            <div className={styles.scheduleDesc}>
+                                <strong>Group Kids' Training Sessions</strong><br />
+                                Суббота – Воскресенье ⭐
+                            </div>
+                        </div>
+
+                        <div className={`${styles.scheduleRow} ${styles.scheduleRowRest}`}>
+                            <div className={styles.scheduleDay}>MON</div>
+                            <div className={styles.scheduleTime}>—</div>
+                            <div className={styles.scheduleDesc}>
+                                Rest day / Выходной
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 {/* ── Membership (Monthly) ───────────────────── */}
                 <section className={styles.plansSection}>
                     <h2 className={styles.plansTitle}>▶ MEMBERSHIPS</h2>
@@ -197,13 +268,13 @@ export default function ForKids() {
                     </div>
                 </section>
 
-                {/* ── Semi-Annual Plans ──────────────────────── */}
+                {/* ── Semi-Annual Plans (Temporarily Hidden) ── */}
+                {/* 
                 <section className={styles.semiSection}>
                     <h2 className={styles.plansTitle}>▶ SIX MONTHS ON PIXELS</h2>
                     <p className={styles.plansSub}>Save more and level up over 6 months straight</p>
 
                     <div className={styles.plansGrid}>
-                        {/* Semi Starter */}
                         <div className={styles.planCard}>
                             <div className={styles.planBadge}>STARTER × 6</div>
                             <div className={styles.planPrice}>
@@ -225,7 +296,6 @@ export default function ForKids() {
                             </button>
                         </div>
 
-                        {/* Semi Pro */}
                         <div className={`${styles.planCard} ${styles.planCardPro}`}>
                             <div className={styles.planBadgeHot}>⭐ PIXEL FIGHTER × 6</div>
                             <div className={styles.planPrice}>
@@ -249,116 +319,7 @@ export default function ForKids() {
                         </div>
                     </div>
                 </section>
-
-                {/* ── Training Schedule ─────────────────────── */}
-                <section id="schedule" className={styles.scheduleSection}>
-                    <h2 className={styles.plansTitle}>▶ TRAINING SCHEDULE</h2>
-                    <p className={styles.plansSub}>
-                        We believe sport should be open and accessible to everyone.
-                        Join us on our rides:
-                    </p>
-
-                    <div className={styles.scheduleGrid}>
-                        <div className={styles.scheduleRow}>
-                            <div className={styles.scheduleDay}>MON</div>
-                            <div className={styles.scheduleTime}>07:00</div>
-                            <div className={styles.scheduleDesc}>
-                                <strong>Start: Arcadia — Health Track</strong><br />
-                                Cool-down ride (easy recovery cycling)
-                            </div>
-                        </div>
-
-                        <div className={`${styles.scheduleRow} ${styles.scheduleRowRest}`}>
-                            <div className={styles.scheduleDay}>TUE</div>
-                            <div className={styles.scheduleTime}>—</div>
-                            <div className={styles.scheduleDesc}>
-                                Rest day or free ride finishing at the Arcadia Sanatorium
-                            </div>
-                        </div>
-
-                        <div className={styles.scheduleRow}>
-                            <div className={styles.scheduleDay}>WED</div>
-                            <div className={styles.scheduleTime}>07:00</div>
-                            <div className={styles.scheduleDesc}>
-                                <strong>Start: Arcadia — Health Track</strong><br />
-                                Main training session
-                            </div>
-                        </div>
-
-                        <div className={styles.scheduleRow}>
-                            <div className={styles.scheduleDay}>THU</div>
-                            <div className={styles.scheduleTime}>11:00</div>
-                            <div className={styles.scheduleDesc}>
-                                <strong>Arcadia Sanatorium</strong><br />
-                                Group kids' training session
-                            </div>
-                        </div>
-
-                        <div className={styles.scheduleRow}>
-                            <div className={styles.scheduleDay}>FRI</div>
-                            <div className={styles.scheduleTime}>07:00</div>
-                            <div className={styles.scheduleDesc}>
-                                <strong>Health Track</strong><br />
-                                Easy ride
-                            </div>
-                        </div>
-
-                        <div className={styles.scheduleRow}>
-                            <div className={styles.scheduleDay}>SAT</div>
-                            <div className={styles.scheduleTime}>12:00</div>
-                            <div className={styles.scheduleDesc}>
-                                <strong>Lanzeron, «Sport Territory»</strong><br />
-                                Group kids' training session
-                            </div>
-                        </div>
-
-                        <div className={`${styles.scheduleRow} ${styles.scheduleRowBig}`}>
-                            <div className={styles.scheduleDay}>SUN</div>
-                            <div className={styles.scheduleTime}>11:00<br /><span>12:00</span></div>
-                            <div className={styles.scheduleDesc}>
-                                <strong>Lanzeron, «Sport Territory»</strong><br />
-                                Kids' group training &amp; big club meetup ⭐
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* ── Join Form ──────────────────────────────── */}
-                <section className={styles.joinSection}>
-                    <h2 className={styles.joinTitle}>▶ JOIN PIXEL FIGHTER</h2>
-                    <form
-                        className={styles.form}
-                        id="contact-form"
-                        onSubmit={async (e) => {
-                            e.preventDefault();
-                            const formData = new FormData(e.target);
-                            const data = {
-                                name: formData.get('name'),
-                                email: formData.get('email'),
-                                phone: formData.get('phone')
-                            };
-                            
-                            try {
-                                await fetch('/api/sendPixel', {
-                                    method: 'POST',
-                                    headers: { 'Content-Type': 'application/json' },
-                                    body: JSON.stringify(data)
-                                });
-                            } catch (err) {
-                                console.error("Join error", err);
-                            }
-                            
-                            navigate('/success');
-                        }}
-                    >
-                        <fieldset>
-                            <input className="is-circle" type="text" name="name" placeholder="Full Name" required />
-                            <input className="is-circle" type="email" name="email" placeholder="Email" required />
-                            <input className="is-circle" type="tel" name="phone" placeholder="Phone" required />
-                            <input className="is-circle" type="submit" value="SUBMIT" />
-                        </fieldset>
-                    </form>
-                </section>
+                */}
 
                 {/* ── JoinUs Banner ──────────────────────────── */}
                 <div className={styles.joinUsBanner}>
